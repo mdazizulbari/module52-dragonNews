@@ -8,11 +8,8 @@ const LatestNews = () => {
       <Marquee className="flex gap-5" pauseOnHover={true} speed={60}>
         <p className="font-semibold                           ">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
-          accusantium.
-        </p>
-        <p className="font-semibold                           ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae,
-          accusantium.
+          accusantium. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Sint, laborum?
         </p>
       </Marquee>
     </div>
