@@ -1,9 +1,10 @@
 import React from "react";
 import { FaBookmark, FaEye, FaShareAlt } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { title, thumbnail_url, details, author, total_view, rating } =
+  const { id, title, thumbnail_url, details, author, total_view, rating } =
     news;
 
   return (
@@ -29,7 +30,9 @@ const NewsCard = ({ news }) => {
       </div>
 
       <div className="p-4">
-        <h2 className="font-bold text-lg mb-2 text-gray-600 text-center">{title}</h2>
+        <h2 className="font-bold text-lg mb-2 text-gray-600 text-center">
+          {title}
+        </h2>
         <img
           src={thumbnail_url}
           alt={title}
@@ -39,9 +42,12 @@ const NewsCard = ({ news }) => {
           {details.length > 200 ? (
             <>
               {details.slice(0, 200)}...{" "}
-              <span className="text-orange-500 font-semibold cursor-pointer">
+              <Link
+                to={`/news-details/${id}`}
+                className="hover:text-orange-500 font-semibold cursor-pointer"
+              >
                 Read More
-              </span>
+              </Link>
             </>
           ) : (
             details

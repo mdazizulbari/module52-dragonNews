@@ -14,7 +14,7 @@ const HomeLayout = () => {
         <section className="w-11/12 mx-auto my-3">
           <LatestNews></LatestNews>
         </section>
-        <nav className="w-11/12 mx-auto my-3">
+        <nav className="w-11/12 mx-auto my-8">
           <Navbar />
         </nav>
       </header>

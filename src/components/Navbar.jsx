@@ -4,7 +4,17 @@ import userImg from "../assets/user.png";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
-  const { user } = use(AuthContext);
+  const { user, logOut } = use(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        alert("Sign-out successful.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="flex justify-center items-center relative">
@@ -21,9 +31,18 @@ const Navbar = () => {
       "
       >
         <img src={userImg} alt="" />
-        <Link to={`/auth/login`} className="btn btn-primary px-10">
-          Login
-        </Link>
+        {user ? (
+          <button
+            className="btn btn-primary px-10"
+            onClick={() => handleLogOut()}
+          >
+            Log Out
+          </button>
+        ) : (
+          <Link to={`/auth/login`} className="btn btn-primary px-10">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
