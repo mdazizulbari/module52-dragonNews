@@ -1,13 +1,22 @@
-import React, { use } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, setUser } = use(AuthContext);
+  const { createUser, setUser, updateUser } = use(AuthContext);
+  const [nameError, setNameError] = useState("");
+  const navigate = useNavigate();
+
   const handleRegister = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
+    if (name.length < 4) {
+      setNameError("Name should be more than 3 characters");
+      return;
+    } else {
+      setNameError();
+    }
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
@@ -16,11 +25,19 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         // console.log(user);
-        setUser(user);
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+            setUser(user);
+          });
       })
       .error((error) => {
         const errorMessage = error.message;
-        const errorCode = error.code;
+        // const errorCode = error.code;
         console.log(errorMessage);
       });
   };
@@ -42,6 +59,7 @@ const Register = () => {
               placeholder="Name"
               required
             />
+            {nameError && <p className="text-xs taxt">{nameError}</p>}
             {/* photo */}
             <label className="label">Photo URL</label>
             <input
